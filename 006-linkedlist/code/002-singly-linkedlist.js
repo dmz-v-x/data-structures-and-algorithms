@@ -8,6 +8,7 @@ class Node {
 class LinkedList {
   constructor(){
     this.head = null;
+    this.tail = null;
   }
 
 // Insert at the beginning
@@ -20,10 +21,10 @@ class LinkedList {
   }
 
   
-// Insert at the end
+// Insert at the end without tail pointer
 // Complexity: Time -> O(n) Space -> O(1)
   
-  insertAtEnd(data){
+  insertAtEndWithoutTail(data){
     const newNode = new LinkedList(data);
     
     if(this.head === null){
@@ -38,6 +39,22 @@ class LinkedList {
 
     current.next = newNode;
       
+  }
+
+// Insert at the end with tail
+// Complexity: Time -> O(1) Space -> O(1)
+
+  insertAtEndWithTail(data){
+    const newNode = new Node(data);
+
+    // empty list
+    if (this.head === null){
+      this.head = newNode;
+      this.tail = newNode;
+    }
+
+    this.tail.next = newNode;
+    this.tail = newNode;
   }
 
 // Insert at position
@@ -69,6 +86,51 @@ class LinkedList {
     newNode.next = current.next;
     current.next = newNode;
   }
+
+
+// Delete from beginning
+// Complexity: Time -> O(1) Space -> O(1)
+
+  deleteFromBeginning(){
+    if(this.head === null){
+      return;
+    }
+    this.head = this.head.next;
+  }
+
+// Delete from end without tail
+// Complexity: Time -> O(n) Space -> O(1)
+
+  deleteFromEndWithoutTail(){
+    if(this.head === null){
+      return;
+    }
+
+    if(this.head.next === null){
+      this.head = null;
+      return;
+    }
+
+    let current = this.head
+    while(current.next.next !== null){
+      current = current.next;
+    }
+
+    current.next = null;
+  }
+
+// Delete from end with tail pointer
+// Complexity: Time -> O(1) Space -> O(1)
+
+  deleteFromEndWithTail(){
+    
+  }
+
+// Delete from position
+// Complexity: Time ->   Space -> 
+
+  deleteFromPosition(){}
+
 
 // Traversing a linkedlist
 // Complexity: Time -> O(n) Space -> O(1)
