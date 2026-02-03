@@ -37,3 +37,14 @@ var reverseList = function(head) {
 };
 
 // Reverse a linkedlist recursive solution
+
+var reverseList = function(head) {
+  if(head === null || head.next === null){
+    return head;
+  }
+  let newHead = reverseList(head.next);
+  let front = head.next;
+  front.next = head;
+  head.next = null
+  return newHead;
+};
