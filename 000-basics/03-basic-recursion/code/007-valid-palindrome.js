@@ -61,6 +61,56 @@ function isAlphanumeric(char){
           );
 }
 
+// Recursive Solution
+
+// Time Complexity: O(n);
+// Space Complexity: O(n)
+
+function isPalindrome(s){
+  const cleaned = s.replace(/[^a-z0-9]/gi, "").toLowerCase();
+  return checkPalindrome(cleaned, 0, cleaned.length -1);
+}
+
+function checkPalindrome(str, start, end){
+  if(start >= end) return true;
+
+  if(str[start] !== str[end]){
+    return false;
+  }
+
+  return checkPalindrome(str, start+1, end-1);
+}
+
+// Optimal Recursive Solution
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+function isPalindrome(s){
+  return checkPalindrome(s, 0, s.length-1);
+}
+
+function checkPalindrome(str, start, end){
+  while(start < end && !isAlphanumeric(str[start])) start++;
+  while(start < end && !isAlphanumeric(str[end])) end--;
+
+  if(start >= end) return true;
+
+  if(str[start].toLowerCase() !== str[end].toLowerCase()){
+    return false;
+  }
+
+  return checkPalindrome(str, start+1, end-1);
+}
+
+function isAlphanumeric(char){
+  return(
+    (char >= 'a' && char <= 'z') ||
+    (char >= 'A' && char <= 'Z') ||
+    (char >= '0' && char <= '9')
+  );
+}
+
 
 
 
