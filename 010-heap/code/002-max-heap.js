@@ -62,6 +62,42 @@ class maxHeap{
       index = parentIndex;
     }
   }
+
+  // extract Max
+
+  extractMax(){
+    if(this.size() === 1){
+      return this.heap.pop();
+    }
+
+    const max = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.heapifyDown();
+    return max;
+  }
+
+  // heapify Down
+
+  heapifyDown(){
+    let index = 0;
+    
+    while(this.leftChildIndex(index) < this.size()){
+      let greaterChildIndex = this.leftChildIndex(index);
+      let rightChildIndex = this.rightChildIndex(index);
+
+      if(rithChildIndex < this.size() && this.heap[rightChildIndex] > this.heap[greaterChildIndex]){
+        greaterChildIndex = rightChildIndex;
+      }
+
+      if(this.heap[index] >= this.heap[greaterChildIndex]){
+        break;
+      }
+
+      this.swap(index, greaterChildIndex)
+
+      index = greaterChildIndex;
+    }
+  }
   
 
   
