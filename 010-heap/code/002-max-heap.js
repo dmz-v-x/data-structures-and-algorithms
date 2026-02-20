@@ -49,8 +49,17 @@ class maxHeap{
   // heapifyUp
 
   heapifyUp(){
-    if(this.size() === 1){
-      return 
+    let index = this.size() - 1;
+    if(index > 0){
+      let parentIndex = this.getParentIndex(index);
+
+      if(this.heap[parentIndex] >= this.heap[index]){
+        break;
+      }
+
+      this.swap(parentIndex, index);
+
+      index = parentIndex;
     }
   }
   
