@@ -1,30 +1,28 @@
-function converToMaxHeap(arr, n){
-  let maxHeap = [];
-  for(let i = Math.floor((n/2)-1); i>=0; i--){
-    maxHeap.push(arr[i]);
-    heapifyDown(maxHeap, i);
+function convertToMaxHeap(arr, n){
+  for(let i = Math.floor((n/2) - 1); i>= 0; i--){
+    heapifyDown(arr, i);
   }
     
 }
 
-function heapifyDown(maxHeap, i){
-  let largest = i;
+function heapifyDown(arr, i){
   while(true){
+    let largest = i;
     let leftIndex = 2 * i + 1;
     let rightIndex = 2 * i + 2;
 
-    if(leftChild < maxHeap.length && maxHeap[leftIndex] > maxHeap[largest]){
+    if(leftIndex < arr.length && arr[leftIndex] > arr[largest]){
       largest = leftIndex;
     }
 
-    if(rightIndex < maxHeap.length && maxHeap[rightIndex] > maxHeap[largest]){
+    if(rightIndex < arr.length && arr[rightIndex] > arr[largest]){
       largest = rightIndex;
     }
 
     if(largest === i) break;
 
-    [maxHeap[largest], maxHeap[i]] = [maxHeap[i], maxHeap[largest]];
+    [arr[largest], arr[i]] = [arr[i], arr[largest]];
 
-    largest = leftIndex;
+    i = largest;
   }
 }
