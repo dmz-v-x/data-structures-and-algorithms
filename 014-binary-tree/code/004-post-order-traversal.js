@@ -15,7 +15,7 @@ function recursivePostOrderTraversal(root){
   console.log(root.value); // ROOT
 }
 
-// 2. Iterative Post Order Traversal
+// 2. Iterative Post Order Traversal Using Two stack
 
 function iterativePostOrderTraversal(root){
   if(root === null) return;
@@ -34,6 +34,34 @@ function iterativePostOrderTraversal(root){
   while(stack2.length > 0){
     const node = stack2.pop();
     console.log(node.value);
+  }
+}
+
+// 3 Iterative Post Order Traversal Using One Stack
+
+function iterativePostOrderTraversalOneStack(root){
+  if(root === null) return;
+
+  const stack = [];
+  let current = root;
+  let lastVisited = null;
+
+  while(current !== null && stack.length > 0){
+    // Step 1: Go left
+    while(current !== null){
+      stack.push(current);
+      current = current.left;
+    }
+
+    // Step 2: Peek (Not Pop yet)
+    let peekNode = stack[stack.length - 1];
+
+    if(peekNode.right !== null && lastVisited !== peakNode.right){
+      current = peakNode.right; // Go Right
+    }else {
+      console.log(peekNode.value); // Visit Root
+      lastVisited = stack.pop();
+    }
   }
 }
 
