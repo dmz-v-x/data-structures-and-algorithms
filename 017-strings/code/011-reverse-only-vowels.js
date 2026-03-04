@@ -9,21 +9,22 @@
 // Input: s = "IceCreAm"
 
 // Output: "AceCreIm"
-
+// Time Complexity: O(n)
+// Space Complexity:O(n)
 function reverseVowels(str){
   let arr = str.split('');
   let vowels = "aAeEiIoOuU";
   let left = 0;
   let right = arr.length - 1;
   while(left < right){
-    if(!vowels.include(arr[i])){
-      i++;
-    }else if(!vowels.include(arr[j])){
-      j--;
+    if(!vowels.includes(arr[left])){
+      left++;
+    }else if(!vowels.includes(arr[right])){
+      right--;
     }else{
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-      i++;
-      j--;
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+      right--;
     }
     
   }
