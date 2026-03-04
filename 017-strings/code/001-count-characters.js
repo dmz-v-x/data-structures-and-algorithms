@@ -49,7 +49,7 @@ function countCharacters(str){
 
 // Time Complexity: O(n)
 // Space Complexity: O(1)
-
+// Printing in Order
 function countCharacters(str){
   let array = new Array(26).fill(0);
   for(let i = 0; i<str.length; i++){
@@ -61,6 +61,23 @@ function countCharacters(str){
     if(array[index] > 0){
       console.log(str[i]+" -> "+array[index]);
       array[index] = -1;
+    }
+  }
+}
+
+// Printing alphabetically
+
+function countCharacters(str){
+  let array = new Array(26).fill(0);
+  for(let i = 0; i<str.length; i++){
+    let index = str.charCodeAt(i) - 97;
+    array[index]++;
+  }
+
+  for(let i = 0; i<array.length; i++){
+    if(array[i] > 0){
+      let char = String.fromCharCode(i + 97);
+      console.log(char+" -> "+array[index]);
     }
   }
 }
