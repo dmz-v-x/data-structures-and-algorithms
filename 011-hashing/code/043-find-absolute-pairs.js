@@ -72,7 +72,8 @@ function countPairs(arr, k){
 }
 
 // Optimal Approach
-
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 function countPairs(arr, k){
   let map = new Map();
   let count = 0;
