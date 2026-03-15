@@ -55,7 +55,27 @@ function largestSubarray(arr, k){
 }
 
 // Optimal Approach
-
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 function largetstSubarray(arr, k){
-  
+  let prefixSum = 0;
+  let map = new Map();
+  let maxLen = 0;
+  for(let num of arr){
+    prefixSum += num;
+
+    if(prefixSum === k){
+      maxLen = i+1;
+    }
+
+    if(map.has(prefixSum - k)){
+      let prevIndex = map.get(prefixSum - k);
+      maxLen = Math.max(maxLen, i - prevIndex);
+    }
+
+    if(!map.has(prefixSum)) {
+      map.set(prefixSum, i);
+    }
+  }
+  return maxLen;
 }
