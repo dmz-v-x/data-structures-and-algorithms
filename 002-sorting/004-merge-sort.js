@@ -50,3 +50,24 @@ function iterativeMergeSort(arr) {
 
   return arr;
 }
+
+// Clean Approach
+
+function mergeSort(arr) {
+  let n = arr.length, temp = Array(n);
+
+  for (let size = 1; size < n; size *= 2)
+    for (let left = 0; left < n; left += 2 * size) {
+      let mid = Math.min(left + size, n);
+      let right = Math.min(left + 2 * size, n);
+      let i = left, j = mid, k = left;
+
+      while (i < mid && j < right) temp[k++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
+      while (i < mid) temp[k++] = arr[i++];
+      while (j < right) temp[k++] = arr[j++];
+
+      for (let p = left; p < right; p++) arr[p] = temp[p];
+    }
+
+  return arr;
+}
