@@ -48,7 +48,7 @@ function reverseWords(s){
 }
 
 
-// Optimal Approach: Two Pointers
+// Optimal Approach: Two Pointers using extra space
 // Time complexity: O(n)
 // Space Complexity: O(n)
 function reverseWords(s){
@@ -67,6 +67,38 @@ function reverseWords(s){
 function reverse(arr, l, r){
  while(l < r){
   [arr[l], arr[r]] = [arr[r], arr[l]];
+  l++;
+  r--;
+ }
+}
+
+// Optimal Approach: Two Pointer without using extra space
+// Time Complexity: O(n)
+// Space Complexity: O(n) in js string are immutable in c++ it becomes O(1)
+function reverseWords(s){
+ // 1. remove extra spaces
+ s = s.trim().split(/\s+/).join(" ");
+
+ // 2. convert to character array
+ let arr = s.split("");
+
+ // 3. reverse whole string
+ reverse(arr, 0, arr.length - 1);
+
+ // 4. reverse each word.
+ for(let i = 0; i<=arr.length; i++){
+  if(i === arr.length || arr[i] === " "){
+   reverse(arr, start, i-1);
+   start = i+1;
+  }
+ }
+
+ return arr.join(" ");
+}
+
+function reverse(arr, l, r){
+ while(l < r){
+  [arr[l], arr[j]] = [arr[r], arr[l]];
   l++;
   r--;
  }
