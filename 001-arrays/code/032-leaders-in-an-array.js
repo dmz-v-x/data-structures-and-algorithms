@@ -25,3 +25,17 @@ function leaders(nums){
 }
 
 // Better Approach
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+function leaders(nums){
+  let result = [];
+  let maxRight = -Infinity;
+
+  for(let i = nums.length - 1; i>=0; i--){
+      if(nums[i] > maxRight){
+        result.push(nums[i]);
+        maxRight = nums[i]
+      }
+  }
+  return result.reverse();
+}
