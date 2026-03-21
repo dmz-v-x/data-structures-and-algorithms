@@ -25,9 +25,25 @@ function nextGreaterRight(arr){
 }
 
 // Optimal Approach
-
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 function nextGreaterRight(arr){
   let n = arr.length;
   let result = new Array(n).fill(-1);
   let stack = [];
+
+  for(let i = n-1; i>=0; i--){
+    while(stack.length && arr[i] >= stack[stack.length - 1]){
+      stack.pop();
+    }
+    if(stack.length){
+      result[i] = stack[stack.length - 1];
+    }
+    stack.push(arr[i]);
+  }
+  return result;
 }
+
+
+
+
