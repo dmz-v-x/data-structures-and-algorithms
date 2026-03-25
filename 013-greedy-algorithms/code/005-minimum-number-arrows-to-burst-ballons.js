@@ -66,7 +66,8 @@
 // Else → already covered
 
 // Optimal Solution
-
+// Time Complexity: O(n log n)
+// Space Complexity: O(1)
 function findMinArrowShots(points){
   if(points.length === 0){
     return 0;
