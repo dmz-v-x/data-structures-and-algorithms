@@ -1,34 +1,50 @@
 class Stack {
-  constructor(){
-    this.items = [];
+  constructor(size) {
+    this.stack = new Array(size);
+    this.top = -1;
+    this.size = size;
   }
 
-  push(value){
-    this.items.push(value);
-  }
-
-  pop(){
-    if(this.isEmpty()){
-      return "Stack is Empty";
+  // Push element onto stack
+  push(value) {
+    if (this.top === this.size - 1) {
+      console.log("Stack Overflow");
+      return;
     }
-    return this.items.pop();
+    this.stack[++this.top] = value;
   }
 
-  peek(){
-    if(this.isEmpty()){
-      return "Stack is empty";
+  // Pop element from stack
+  pop() {
+    if (this.top === -1) {
+      console.log("Stack Underflow");
+      return null;
     }
-    return this.items[this.items.length - 1];
+    return this.stack[this.top--];
   }
 
-  isEmpty(){
-    return this.items.length === 0;
+  // Peek top element
+  peek() {
+    if (this.top === -1) {
+      console.log("Stack is empty");
+      return null;
+    }
+    return this.stack[this.top];
   }
 
-  size(){
-    return this.items.length;
+  // Check if empty
+  isEmpty() {
+    return this.top === -1;
   }
-  
+
+  // Print stack
+  print() {
+    if (this.top === -1) {
+      console.log("Stack is empty");
+      return;
+    }
+    console.log(this.stack.slice(0, this.top + 1));
+  }
 }
 
 const stack = new Stack();
