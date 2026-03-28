@@ -16,6 +16,17 @@ checkPalindrome("MADAM", 0, 4);
 
 // Check for palindrome using one pointer
 
-function checkPalindrome(s){
-  
+// Time Complexity: O(n/2)
+// Space Complexity: O(n/2)
+
+function checkPalindrome(s, i){
+  let n = s.length;
+
+  if(i >= Math.floor(n/2)) return true;
+
+  if(s[i] !== s[n - i - 1]) return false;
+
+  return checkPalindrome(s, i + 1);
 }
+
+console.log(checkPalindrome("MADAM", 0));
