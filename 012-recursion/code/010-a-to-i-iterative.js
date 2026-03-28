@@ -89,6 +89,7 @@ function myAtoi(s){
   let n = s.length;
   const INT_MAX = 2**31 -1;
   const INT_MIN = -(2**31);
+  let res = 0;
 
   // 1. skip spaces
   while(i < n && s[i] === " "){
@@ -97,7 +98,7 @@ function myAtoi(s){
 
   // 2. sign
   let sign = 1;
-  while(i < n && (s[i] === '-' || s[i] === '+')){
+  if(i < n && (s[i] === '-' || s[i] === '+')){
     if(s[i] === '-'){
       sign = -1;
     }
