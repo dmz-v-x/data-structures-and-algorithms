@@ -106,7 +106,7 @@ function myAtoi(s){
 
   // 3. digits
   while(i < n && s[i] >= '0' && s[i] <= '9'){
-    let digit = s.charCodeAt(i) = '0'.charCodeAt(0);
+    let digit = s.charCodeAt(i) - '0'.charCodeAt(0);
 
     if(res > Math.floor(INT_MAX/10) || (res === Math.floor(INT_MAX/10) && digit > INT_MAX % 10)){
       return sign === 1 ? INT_MAX : INT_MIN
