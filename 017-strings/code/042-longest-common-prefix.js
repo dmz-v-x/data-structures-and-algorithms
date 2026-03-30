@@ -17,9 +17,9 @@
 
 
 // Brute Force: Take first string as reference, compare it's characters with all other strings
-
+// Interview Approach
 // Time Complexity: O(n * m)
-
+// Space Complexity: O(1)
 function longestCommonPrefix(strs){
   if(strs.length === 0) return "";
 
@@ -45,6 +45,10 @@ function longestCommonPrefix(strs){
 // Most different strings go far apart
 
 // Common prefix of entire array = Common prefix of first and last
+
+// Time Complexity: O(NlogN + M)
+// Space Complexity: O(log N)
+// N = length of array, M = length of shortest string
 
 function longestCommonPrefix(strs){
   if(strs.length === 0) return "";
