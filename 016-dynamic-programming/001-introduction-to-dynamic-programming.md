@@ -64,13 +64,13 @@ This improves performance from exponential to polynomial time
 - Uses recursion
 - Stores results in a cache
 
-    function fib(n, memo = {}){
-      if(n in memo) return memo[n];
-      if(n <= 1) return n;
-
-      memo[n] = fib(n-1, memo) + fib(n-2, memo);
-      return memo[n];
-    }
+        function fib(n, memo = {}){
+          if(n in memo) return memo[n];
+          if(n <= 1) return n;
+    
+          memo[n] = fib(n-1, memo) + fib(n-2, memo);
+          return memo[n];
+        }
 
 Time Complexity: O(n)
 
@@ -81,16 +81,16 @@ Time Complexity: O(n)
 - Uses iteration
 - Builds solution step by step
 
-    function fib(n){
-      let dp = new Array(n+1).fill(0);
-      dp[1] = 1;
-
-      for(let i = 2; i <= n; i++){
-        dp[i] = dp[i-1] + dp[i-2];
-      }
-
-      return dp[n];
-    }
+        function fib(n){
+          let dp = new Array(n+1).fill(0);
+          dp[1] = 1;
+    
+          for(let i = 2; i <= n; i++){
+            dp[i] = dp[i-1] + dp[i-2];
+          }
+    
+          return dp[n];
+        }
 
 ---
 
@@ -100,7 +100,8 @@ Time Complexity: O(n)
 Represents a subproblem
 
 Example:
-dp[i] = answer for index i
+
+    dp[i] = answer for index i
 
 ---
 
@@ -108,7 +109,8 @@ dp[i] = answer for index i
 How current state depends on previous states
 
 Example:
-dp[i] = dp[i-1] + dp[i-2]
+
+    dp[i] = dp[i-1] + dp[i-2]
 
 ---
 
@@ -116,8 +118,9 @@ dp[i] = dp[i-1] + dp[i-2]
 Initial known values
 
 Example:
-dp[0] = 0  
-dp[1] = 1
+
+    dp[0] = 0  
+    dp[1] = 1
 
 ---
 
@@ -160,7 +163,8 @@ dp[i] = ways to reach step i
 ---
 
 #### Step 2: Transition
-dp[i] = dp[i-1] + dp[i-2]
+
+    dp[i] = dp[i-1] + dp[i-2]
 
 ---
 
@@ -229,7 +233,8 @@ dp[i] depends on dp[i-1]
 Choose best among options
 
 Example:
-dp[i] = max(dp[i-1], nums[i] + dp[i-2])
+
+    dp[i] = max(dp[i-1], nums[i] + dp[i-2])
 
 ---
 
