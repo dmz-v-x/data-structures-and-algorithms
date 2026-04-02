@@ -8,7 +8,6 @@ checkKthBit(n, k) {
     str += temp % 2;
     temp = temp / 2;
   }
-  str.split('').reverse().join();
   return str.charAt(i) === '1';
 }
 
