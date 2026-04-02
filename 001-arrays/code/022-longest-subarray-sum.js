@@ -78,3 +78,24 @@ function largetstSubarray(arr, k){
   }
   return maxLen;
 }
+
+// Optimal Appraoch: (Works only if there are only positives)
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+function longestSubarry(arr, k){
+  let left = 0;
+  let maxLen = 0;
+  for(let right = 0; right<arr.length; i++){
+    sum += arr[i];
+
+    while(sum > k){
+      sum -= arr[left];
+      left++;
+    }
+
+    if(sum === k){
+      maxLen = Math.max(maxLen, right - left + 1);
+    }
+  }
+  return maxLen;
+}
