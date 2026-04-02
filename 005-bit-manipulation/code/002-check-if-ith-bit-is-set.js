@@ -2,18 +2,14 @@
 // Time Complexity: O(log2n)
 
 checkKthBit(n, k) {
-        // code here
-    let str = "";
-    let temp = n
-    if(str.length === 1){
-        str += n
-    }
-    while(temp > 0){
-       str += temp%2;
-       temp = Math.floor(temp/2);
-    }
-        
-    return str.charAt(k) === '1'
+  let temp = n;
+  let str = "";
+  while(temp > 0){
+    str += temp % 2;
+    temp = temp / 2;
+  }
+  str.split('').reverse().join();
+  return str.charAt(i) === '1';
 }
 
 // Optimal Solution
