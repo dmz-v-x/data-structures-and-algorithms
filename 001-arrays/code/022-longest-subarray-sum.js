@@ -61,20 +61,19 @@ function largetstSubarray(arr, k){
   let prefixSum = 0;
   let map = new Map();
   let maxLen = 0;
+
+  map.set(0, -1);
+  
   for(let num of arr){
     prefixSum += num;
 
-    if(prefixSum === k){
-      maxLen = i+1;
-    }
-
     if(map.has(prefixSum - k)){
-      let prevIndex = map.get(prefixSum - k);
-      maxLen = Math.max(maxLen, i - prevIndex);
+      let len = i - map.get(prefixSum - k);
+      maxLen = Math.max(maxLen, len);
     }
 
-    if(!map.has(prefixSum)) {
-      map.set(prefixSum, i);
+    if(!map.has(sum)){
+      map.set(sum, i);
     }
   }
   return maxLen;
