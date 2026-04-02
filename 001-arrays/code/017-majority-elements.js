@@ -68,7 +68,13 @@ function majorityElement(arr){
   }
 }
 
+// Important Point why verification needed after finding the majority element can't we simply return the element
 
+// Depends on the problem guarantee
 
+// | Case                                   | Verification Needed? |
+// | -------------------------------------- | -------------------- |
+// | Majority element is **guaranteed**     | NO                   |
+// | Majority element is **NOT guaranteed** | YES                  |
 
 
