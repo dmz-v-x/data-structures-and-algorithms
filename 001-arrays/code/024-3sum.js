@@ -67,8 +67,9 @@ function threeSum(nums){
           res.push(temp);
         }
       }
+     hash.add(nums[j]);
     }
-    hash.add(nums[j]);
+    
   }
 }
 
