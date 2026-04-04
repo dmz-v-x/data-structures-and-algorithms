@@ -2,12 +2,12 @@ class Stack {
   constructor(size) {
     this.stack = new Array(size);
     this.top = -1;
-    this.size = size;
+    this.capacity = size;
   }
 
   // Push element onto stack
   push(value) {
-    if (this.top === this.size - 1) {
+    if (this.top === this.capacity - 1) {
       console.log("Stack Overflow");
       return;
     }
@@ -37,6 +37,11 @@ class Stack {
     return this.top === -1;
   }
 
+  // Current size of stack
+  size() {
+    return this.top + 1;
+  }
+
   // Print stack
   print() {
     if (this.top === -1) {
@@ -47,7 +52,7 @@ class Stack {
   }
 }
 
-const stack = new Stack();
+const stack = new Stack(5);
 
 stack.push(10);
 stack.push(20);
@@ -56,10 +61,3 @@ stack.push(30);
 console.log(stack.peek()); // 30
 console.log(stack.pop());  // 30
 console.log(stack.size()); // 2
-
-
-// | Operation | Time |
-// | --------- | ---- |
-// | push      | O(1) |
-// | pop       | O(1) |
-// | peek      | O(1) |
