@@ -27,7 +27,7 @@ function merge(nums1, m, nums2, n){
 function merge(nums1, m, nums2, n){
   let i = 0;
   let j = 0;
-  let temp[];
+  let temp = [];
 
   while(i < m && j < n){
     if(nums1[i] <= nums2[j]){

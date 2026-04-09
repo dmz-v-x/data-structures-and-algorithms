@@ -42,7 +42,7 @@ function merge(a, b){
 
   while(j < b.length){
     result.push(b[j]);
-    j++:
+    j++;
   }
 
   return result;

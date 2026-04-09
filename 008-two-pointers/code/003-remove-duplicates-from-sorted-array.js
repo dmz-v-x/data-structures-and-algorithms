@@ -66,7 +66,7 @@ function removeDuplicates(nums){
 // Time Complexity: O(n)
 // Space Complexity: O(n)
 function removeDuplicates(nums){
-  let unique = [...new Set(nums))]
+  let unique = [...new Set(nums)]
 
   for(let i = 0; i<unique.length; i++){
     nums[i] = unique[i];

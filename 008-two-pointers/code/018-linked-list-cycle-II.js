@@ -15,7 +15,7 @@
 // Time Complexity: O(n)
 // Space Complexity: O(n)
 function detectCycle(head){
-  count visited = new Set();
+  let visited = new Set();
   let current = head;
 
   while(current !== null){
