@@ -137,10 +137,10 @@ Used in:
 The degree of a vertex is the number of edges connected to it.
 
 Example:
-
-    B
-    |
-A -- C -- D
+    
+         B
+         |
+    A -- C -- D
 
 Degree of C = 3  
 Degree of A = 1  
