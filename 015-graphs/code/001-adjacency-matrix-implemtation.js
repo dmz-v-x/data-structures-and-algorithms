@@ -1,7 +1,67 @@
+// If a graph has `V` vertices, an adjacency matrix is:
+
+// A 2D array of size `V × V`.
+
+// Each cell `[i][j]` represents:
+
+// - 1 (or true) → Edge exists
+// - 0 (or false) → No edge exists
+
+// Example:
+
+// Vertices: A, B, C
+
+// Matrix:
+
+//   A  B  C
+// A 0  1  0
+// B 1  0  1
+// C 0  1  0
+
+// This means:
+// - A connected to B
+// - B connected to A and C
+// - C connected to B
+
+// How Do We Represent a Matrix in JavaScript?
+
+// JavaScript does not have built-in matrices.
+
+// We use a 2D array.
+
+// Example of 3×3 matrix:
+
+
+// [
+//   [0, 1, 0],
+//   [1, 0, 1],
+//   [0, 1, 0]
+// ]
+
+// Each inner array represents a row.
+
+// 1. Add Vertex
+Step 1: Push Vertex to Vertices array
+Step 2: Iterate through matrix adding 0 column to each existing row
+Step 3: Creating a new row of size vertices.length and filling it with zero and pushing it to matrix
+
+Matrix always stays square
+
+// 2. Getting Vertex Index
+Since matrix Uses numeric Indices we must map vertex name to index
+
+If vertices = ['A', 'B', 'C']
+
+A → 0
+B → 1
+C → 2
+
+
+
 class Graph {
   constructor(){
-    this.vertices = [];
-    this.matrix = [];
+    this.vertices = []; //stores actual vertex labels(list of vertices)
+    this.matrix = []; // matrix stores edges relationship
   }
 
   // 1. Adding a Vertex
