@@ -52,8 +52,36 @@ function frequencySort(s){
 
 
 
+// Better Appraoch
 
+// Steps
+// Count freq
+// Convert to array [char, freq]
+// Sort descending
+// Build string
 
+// Time Complexity: O(n log n);
+
+function frequencySort(s){
+  let map = new Map();
+
+  for(let ch of s){
+    map.set(ch, (map.get(ch) || 0) + 1);
+  }
+
+  let arr = [...map.entries()];
+
+  let ans = "";
+
+  arr.sort((a, b) => b[1] - a[1]);
+
+  for(let [ch, freq] of arr){
+    for(let i = 0; i<freq; i++){
+      ans += ch;
+    }
+  }
+  return ans;
+}
 
 
 
