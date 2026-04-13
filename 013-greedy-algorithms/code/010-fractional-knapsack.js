@@ -56,9 +56,26 @@
 // If full item fits → take it
 // Else → take fraction
 
+// Time Complexity: O(n log n);
+// Space Complexity: O(1) if sorting in place
 
 function fractionalKnapscak(items, capacity){
-  
+  items.sort((a, b) => (b.value/b.weight) - (a.value/a.weight));
+
+  let totalValue = 0;
+  let remainingCapacity = capacity;
+
+  for(let item of items){
+    if(item.capacity <= remainingCapacity){
+      totalValue += item.value;
+      remainingCapacity -= item.weight;
+    }else{
+      const fraction = remainingCapacity / item.weight;
+      totalValue += item.value * fraction;
+      break;
+    }
+  }
+  return totalValue;
 }
 
 
