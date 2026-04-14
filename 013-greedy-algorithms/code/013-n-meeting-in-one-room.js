@@ -1,3 +1,7 @@
+// Pattern: Whenever we see: maximum number of non-overlapping intervals: sort by end time
+
+
+
 // You are given:
 
 // start[] → start times of meetings
