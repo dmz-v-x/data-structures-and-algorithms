@@ -149,9 +149,27 @@ function maxDistinct(nums, k){
 
 // Always pick leftmost available slot
 
+// WHY GREEDY WORKS
+// Key idea:
 
+// If you pick a larger number early:
 
+// You block future intervals
+// Example:
 
+// If instead of 0, you pick 2:
+
+// Next interval cannot use 2
+// → lose opportunity
+
+// So:
+
+// Always pick smallest valid number
+
+// FINAL MENTAL MODEL
+// Each number = interval
+// We are placing points in intervals
+// Goal = maximize number of non-overlapping points
 
 
 
