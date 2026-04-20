@@ -183,7 +183,49 @@ var maxPathSum = function(root) {
 
 
 
+// DRY RUN STEP BY STEP
 
+// Tree:
+
+//         -10
+//         /  \
+//        9    20
+//            /  \
+//           15   7
+// Step 1: Node 15
+// left = 0
+// right = 0
+
+// currentPath = 15
+// global = 15
+
+// return 15
+// Step 2: Node 7
+// currentPath = 7
+// global = 15
+
+// return 7
+// Step 3: Node 20
+// left = 15
+// right = 7
+
+// currentPath = 15 + 7 + 20 = 42
+// global = 42
+
+// return 20 + max(15,7) = 35
+// Step 4: Node 9
+// currentPath = 9
+// global = 42
+
+// return 9
+// Step 5: Node -10
+// left = 9
+// right = 35
+
+// currentPath = 9 + 35 - 10 = 34
+// global = 42
+
+// return -10 + 35 = 25
 
 
 
