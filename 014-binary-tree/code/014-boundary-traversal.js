@@ -104,18 +104,68 @@
 
 // [1, 2, 4, 7, 8, 9, 6, 3]
 
-
+// COMPLEXITY
+// Time: O(N)
+// Space: O(H)
 
 function boundaryOfBinaryTree(root){
   if(!root) return [];
 
   let result = [];
 
+  function isLeaf(node){
+    return !node.left && !node.right;
+  }
 
+  // Step 1: root
 
+  if(!isLeaf(root)) result.push(root.val);
+
+  // Step 2: Left Boundary
+
+  let curr = root.left;
+  while(curr){
+    if(!isLeaf(curr)) result.push(curr.val);
+
+    if(curr.left) curr = curr.left;
+    else curr = curr.right;
+  }
+
+  // Step 3: Leaves
+
+  function addLeaves(node){
+    if(!node) return;
+
+    if(isLeaf(node)){
+      result.push(node.val);
+      return;
+    }
+
+    addLeaves(node.left);
+    addLeaves(node.right);
+  }
+
+  addLeaves(root);
+
+  // Step 4: Right boundary
+
+  let stack = [];
+  curr = root.right;
+
+  while(curr){
+    if(!isLeaf(curr)) stack.push(curr.val);
+
+    if(curr.right) curr = curr.right;
+    else curr = curr.left;
+  }
+
+  // reverse right boundary
+
+  while(stack.length){
+    result.push(stack.pop());
+  }
   
-  
-
+  return result;
 }
 
 
