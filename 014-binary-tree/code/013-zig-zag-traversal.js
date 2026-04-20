@@ -77,6 +77,97 @@ function zigzagLevelOrder(root){
 
 // Use index placement instead of reversing
 
+// Create array of size levelSize
+
+// let level = new Array(size);
+
+// Fill using index
+
+// If:
+
+// leftToRight = true
+// → index = i
+
+// If:
+
+// leftToRight = false
+// → index = size - 1 - i
+
+// Tree:
+
+//         1
+//        / \
+//       2   3
+//      / \   \
+//     4   5   6
+
+// Level 0
+// queue = [1]
+// leftToRight = true
+
+// level = [ _ ]
+// i = 0 → index = 0
+
+// → [1]
+
+// Level 1
+// queue = [2,3]
+// leftToRight = false
+
+// size = 2
+// level = [_, _]
+
+// i = 0 (node = 2)
+// index = 2 - 1 - 0 = 1
+// level = [_, 2]
+
+// i = 1 (node = 3)
+// index = 2 - 1 - 1 = 0
+// level = [3, 2]
+
+// Level 2
+// queue = [4,5,6]
+// leftToRight = true
+
+// level = [_, _, _]
+
+// Fill normally:
+
+// [4,5,6]
+
+// COMPLEXITY
+// Time: O(N)
+// Space: O(N)
+
+function zigzagLevelOrder(root){
+  if(!root) return [];
+
+  let result = [];
+  let queue = [root];
+  let leftToRight = true;
+
+  while(queue.length > 0){
+    let size = queue.length;
+    let level = new Array(size);
+
+    for(let i = 0; i<size; i++){
+      let node = queue.shift();
+
+      let index = leftToRight ? i : size - 1 - i;
+      level[index] = node.val;
+
+      if(node.left) queue.push(node.left);
+      if(node.right) queue.push(node.right);
+    }
+
+    result.push(level);
+    leftToRight = !leftToRight;
+  }
+  return result;
+}
+
+
+
 
 
 
