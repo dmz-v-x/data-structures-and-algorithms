@@ -130,6 +130,60 @@ function maxPathSum(root){
 }
 
 
+// Optimal Approch
+
+// CORE IDEA
+
+// At each node:
+
+// We calculate 2 things:
+
+// 1. Path passing THROUGH node
+// left + node + right
+
+// This could be the answer
+
+// 2. Path going UP to parent
+// node + max(left, right)
+
+// Because parent can't take both sides
+
+// Handle NEGATIVE values
+
+// If left/right is negative → ignore it
+
+// left = max(0, left)
+// right = max(0, right)
+
+
+
+var maxPathSum = function(root) {
+    let maxSum = -Infinity;
+
+    function dfs(node) {
+        if (!node) return 0;
+
+        // Step 1: get left and right
+        let left = Math.max(0, dfs(node.left));
+        let right = Math.max(0, dfs(node.right));
+
+        // Step 2: compute path THROUGH node
+        let currentPath = left + right + node.val;
+
+        // Step 3: update global max
+        maxSum = Math.max(maxSum, currentPath);
+
+        // Step 4: return single path to parent
+        return node.val + Math.max(left, right);
+    }
+
+    dfs(root);
+    return maxSum;
+};
+
+
+
+
 
 
 
