@@ -98,7 +98,7 @@ function wordBreak(s, wordDict){
     for(let end = start + 1; end <= s.length; end++){
       let prefix = s.substring(start, end);
 
-      if(set.has(prefix) && start(end)){
+      if(set.has(prefix) && solve(end)){
         return memo[start] = true;
       }
     }
