@@ -77,3 +77,42 @@ function findTriplet(nums){
 
 // Optimal: Sorting + Two Pointers
 
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)  Ignoring Output
+
+function findTriplet(nums){
+  nums.sort((a, b) => a - b);
+  let n = nums.length;
+  let result = [];
+
+  for(let i = 0; i<n; i++){
+    //skip duplicates
+
+    if(i > 0 && nums[i] === nums[i - 1]) continue;
+
+    let left = i + 1;
+    let right = n - 1;
+
+    while(left < right){
+      let sum = nums[i] + nums[left] + nums[right];
+
+      if(sum === 0){
+        result.push([nums[i], nums[left], nums[right]]);
+
+        // skip duplicates from left
+        while(left < right && nums[left] === nums[left+1]) left++;
+
+        // skip duplicates from right
+        while(left < right && nums[right] === nums[right - 1]) right--;
+
+        left++;
+        right--;
+      }else if(sum < 0){
+        left++;
+      }else{
+        right--;
+      }
+    }
+  }
+  return result;
+}
