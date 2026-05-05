@@ -75,3 +75,27 @@ function maxSubarraySum(arr, k){
   }
   return maxSum
 }
+
+// Sliding Window One iteration
+
+function maxSubarraySum(arr, k){
+  let left = 0;
+  let sum = 0;
+  let maxSum = -Infinity;
+
+  for(let right = 0; right<arr.length; right++){
+    sum += arr[right];
+
+    if(right - left + 1 > k){
+      sum -= arr[left];
+      left++;
+    }
+
+    // only consider window of size k
+    if(right - left + 1 === k){
+      maxSum = Math.max(maxSum, sum);
+    }
+    
+  }
+  return maxSum;
+}
