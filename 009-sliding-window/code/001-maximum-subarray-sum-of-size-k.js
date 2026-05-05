@@ -45,7 +45,7 @@ function maxSubarraySum(arr, k){
   let prefix = new Array(n);
   prefix[0] = arr[0];
   
-  for(let i = 1; i<n; i++){
+  for(let i = 1; i<n-k; i++){
     prefix[i] = prefix[i-1]+arr[i];
   }
 
