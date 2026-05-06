@@ -12,9 +12,5 @@ minAnd2ndMin(arr) {
             }
         }
         
-        if(secondSmallest === smallest || secondSmallest === Infinity){
-            return [-1];
-        }
-        
-        return [smallest, secondSmallest];
+        return secondSmallest === Infinity ? [-1] : [smallest, secondSmallest];
 }
