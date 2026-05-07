@@ -69,7 +69,22 @@ function findDuplicates(arr){
 
 
 
+// In O(1) Space
 
+function findDuplicates(nums){
+  const duplicates = [];
+
+  for(let i = 0; i<nums.length; i++){
+    let idx = Math.abs(nums[i]) - 1;
+
+    if(nums[idx] < 0){
+      duplicates.push(Math.abs(nums[i]));
+    }else{
+      nums[idx] = -nums[idx];
+    }
+  }
+  return duplicates;
+}
 
 
 
