@@ -61,6 +61,8 @@ function firstNegative(arr, k){
 
     // window size reached
     if(right - left + 1 === k){
+
+    if(queue.length > 0){
       result.push(queue[0]);
     }else{
       result.push(0);
@@ -71,6 +73,8 @@ function firstNegative(arr, k){
     }
 
     left++;
+
+    }
   }
 
   return result;
