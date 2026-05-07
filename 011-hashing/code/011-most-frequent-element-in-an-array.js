@@ -37,21 +37,30 @@ function mostFrequentElement(arr){
 // Time Complexity: O(nlogn)
 // Space Complexity: O(1);
 
-function mostFrequentElement(arr){
-  let maxCount = 0;
-  let number = 0;
+function mostFrequentElement(arr) {
   arr.sort((a, b) => a - b);
-  for(let i = 1; i<arr.length; i++){
-    let count = 0;
-    if(arr[i] === arr[i - 1]){
-      count++;
+
+  let maxCount = 1;
+  let currentCount = 1;
+  let number = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+
+    if (arr[i] === arr[i - 1]) {
+      currentCount++;
+    } else {
+      currentCount = 1;
     }
 
-    if((count > maxCount) || (count === maxCount && arr[i] > number)){
-      maxCount = count;
+    if (
+      currentCount > maxCount ||
+      (currentCount === maxCount && arr[i] > number)
+    ) {
+      maxCount = currentCount;
       number = arr[i];
     }
   }
+
   return number;
 }
 
