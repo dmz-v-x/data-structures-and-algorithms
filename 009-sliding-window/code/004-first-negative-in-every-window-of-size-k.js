@@ -41,3 +41,45 @@ function firstNegative(arr, k){
   }
   return result;
 }
+
+
+// Better Approach
+
+// Time complexity: O(n)
+// Space Complexity: O(k) all negatives
+
+function firstNegative(arr, k){
+  let result = [];
+  let queue = [];
+  let left = 0;
+
+  for(let right = 0; right<arr.length; right++){
+    // Add negative elements
+    if(nums[right] < 0){
+      queue.push(nums[right]);
+    }
+
+    // window size reached
+    if(right - left + 1 === k){
+      result.push(queue[0]);
+    }else{
+      result.push(0);
+    }
+
+    if(nums[left] === queue[0]){
+      queue.shift();
+    }
+
+    left++;
+  }
+
+  return result;
+}
+
+
+
+
+
+
+
+
