@@ -10,7 +10,7 @@ function sumOfNumber(n){
 
 // Recursive approach
 
-// paramertised way
+// paramertised way: We pass state as parameter
 
 function sumOfNumber(i, sum){
   if(i < 1){
@@ -22,7 +22,7 @@ function sumOfNumber(i, sum){
 
 sumOfNumber(10, 0);
 
-// functional way
+// functional way: Every functional call return somethings
 
 function sumOfNumber(i){
   if(i === 1) return 1;
