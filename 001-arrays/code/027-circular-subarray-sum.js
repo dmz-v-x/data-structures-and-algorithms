@@ -186,13 +186,12 @@ function maxSubarrayCircular(nums){
     minSum = Math.min(minSum, currentMin);
   }
 
-  if(maxSum < 0){
+  if(total === minSum){
     return maxSum;
   }
 
   return Math.max(maxSum, total - minSum);
 
-  
 }
 
 
