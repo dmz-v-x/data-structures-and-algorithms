@@ -29,6 +29,9 @@ function uniquePath(grid){
   let startI = 0;
   let startJ = 0;
   let nonObstacleCount = 0;
+  
+  let totalPath = 0;
+  
   let m = grid.length;
   let n = grid[0].length;
   for(let i = 0; i<m; i++){
@@ -49,7 +52,8 @@ function uniquePath(grid){
     if(i < 0 ||j < 0 || i >= m || j >= n || grid[i][j] === -1) return 0;
 
     if(grid[i][j] === 2 && count === nonObstacleCount){
-      return 1;
+      totalPath++;
+      return;
     }
 
     let temp = grid[i][j];
@@ -57,9 +61,9 @@ function uniquePath(grid){
 
     
 
-    let totalPath = backtrack(i+1, j, nonObstacleCount, count+1) +
-                    backtrack(i-1, j, nonObstacleCount, count+1) +
-                    backtrack(i, j+1, nonObstacleCount, count+1) +
+    let totalPath = backtrack(i+1, j, nonObstacleCount, count+1) ||
+                    backtrack(i-1, j, nonObstacleCount, count+1) ||
+                    backtrack(i, j+1, nonObstacleCount, count+1) ||
                     backtrack(i, j-1, nonObstacleCount, count+1);
 
     grid[i][j] = temp;
@@ -67,5 +71,6 @@ function uniquePath(grid){
     return totalPath;
   }
 
-  return backtrack(startI, startJ, nonObstacleCount, 1);
+  backtrack(startI, startJ, nonObstacleCount, 1);
+  return totalPath;
 }
