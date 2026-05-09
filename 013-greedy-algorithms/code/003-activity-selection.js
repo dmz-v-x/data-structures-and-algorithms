@@ -1,3 +1,13 @@
+// Activity Selection: “Always pick the activity that finishes earliest.”
+
+// Why Earliest Finish?
+
+// Because:
+
+// Finishing earlier leaves more room for future activities.
+
+// This is the core intuition.
+
 // You are given:
 
 // start = [1, 3, 0, 5, 8, 5]
@@ -293,3 +303,40 @@ function activitySelection(start, finish){
 }
 
 
+
+// Why NOT Sort By Start Time?
+
+// Very important.
+
+// Suppose activities:
+
+// (1,10)
+// (2,3)
+// (4,5)
+// (6,7)
+// If Sorted By Start
+
+// Already sorted:
+
+// (1,10)
+// (2,3)
+// (4,5)
+// (6,7)
+
+// Now greedy picks first activity:
+
+// (1,10)
+
+// Now everything overlaps.
+
+// Answer = 1
+
+// But Optimal Answer Is
+
+// Pick:
+
+// (2,3)
+// (4,5)
+// (6,7)
+
+// Answer = 3
