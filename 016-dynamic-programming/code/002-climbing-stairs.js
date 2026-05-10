@@ -377,94 +377,94 @@ function climbStairs(n){
 
 // --------------
 
-Recap the Recursive Formula
+// Recap the Recursive Formula
 
-We discovered:
+// We discovered:
 
-ways(n)=ways(n−1)+ways(n−2)
+// ways(n)=ways(n−1)+ways(n−2)
 
-Base cases:
+// Base cases:
 
-ways(0)=1,ways(1)=1
+// ways(0)=1,ways(1)=1
 
-Recursive code was:
+// Recursive code was:
 
-function climbStairs(n){
+// function climbStairs(n){
 
-    if(n === 0) return 1;
-    if(n === 1) return 1;
+//     if(n === 0) return 1;
+//     if(n === 1) return 1;
 
-    return climbStairs(n - 1) + climbStairs(n - 2);
-}
+//     return climbStairs(n - 1) + climbStairs(n - 2);
+// }
 
-Problem:
+// Problem:
 
-Repeated calculations.
+// Repeated calculations.
 
 
-Identifying Repeated States
+// Identifying Repeated States
 
-Suppose:
+// Suppose:
 
-climbStairs(5)
+// climbStairs(5)
 
-Recursion tree creates:
+// Recursion tree creates:
 
-climbStairs(4)
-climbStairs(3)
+// climbStairs(4)
+// climbStairs(3)
 
-Then:
+// Then:
 
-climbStairs(3)
+// climbStairs(3)
 
-again creates:
+// again creates:
 
-climbStairs(2)
-climbStairs(1)
+// climbStairs(2)
+// climbStairs(1)
 
-But later:
+// But later:
 
-climbStairs(2)
+// climbStairs(2)
 
-gets calculated AGAIN.
+// gets calculated AGAIN.
 
-Repeated work.
+// Repeated work.
 
-Same problem as Fibonacci.
+// Same problem as Fibonacci.
 
-The DP Thought Process
+// The DP Thought Process
 
-DP asks:
+// DP asks:
 
-“If I already know answer for stair n,
-why calculate again?”
+// “If I already know answer for stair n,
+// why calculate again?”
 
-Instead:
+// Instead:
 
-store it once
-reuse later
+// store it once
+// reuse later
 
-This is memoization.
+// This is memoization.
 
-What Will We Store?
+// What Will We Store?
 
-State is:
+// State is:
 
-ways(n)
+// ways(n)
 
-So we store:
+// So we store:
 
-answer for every stair n
+// answer for every stair n
 
-Example:
+// Example:
 
-dp[2] = 2
-dp[3] = 3
-dp[4] = 5
+// dp[2] = 2
+// dp[3] = 3
+// dp[4] = 5
 
-Meaning:
+// Meaning:
 
-number of ways already computed
+// number of ways already computed
 
 Code:
 
@@ -480,321 +480,758 @@ function climbStairs(n, dp = []){
   return dp[n];
 }
 
-Understanding the dp Array
+// Understanding the dp Array
 
-Suppose after some calculations:
+// Suppose after some calculations:
 
-Index: 0 1 2 3 4 5
-Value: - - 2 3 5 8
+// Index: 0 1 2 3 4 5
+// Value: - - 2 3 5 8
 
-Meaning:
+// Meaning:
 
-dp[4] = 5
+// dp[4] = 5
 
-means:
+// means:
 
-5 ways exist to reach stair 4
+// 5 ways exist to reach stair 4
 
-The MOST IMPORTANT LINE
+// The MOST IMPORTANT LINE
 
-Again the heart of memoization:
+// Again the heart of memoization:
 
-if(dp[n] !== undefined){
-    return dp[n];
+// if(dp[n] !== undefined){
+//     return dp[n];
+// }
+
+// Meaning:
+
+// “Did I already solve this stair?”
+
+// If YES:
+
+// reuse answer immediately
+
+// No recursion.
+
+// No repeated subtree.
+
+// COMPLETE DRY RUN
+
+// Now comes the MOST IMPORTANT PART.
+
+// Suppose:
+
+// climbStairs(5)
+
+// Initially:
+
+// dp = []
+// climbStairs(5)
+
+// Needs:
+
+// climbStairs(4)
+// +
+// climbStairs(3)
+
+// Go to:
+
+// climbStairs(4)
+// climbStairs(4)
+
+// Needs:
+
+// climbStairs(3)
+// +
+// climbStairs(2)
+
+// Go to:
+
+// climbStairs(3)
+// climbStairs(3)
+
+// Needs:
+
+// climbStairs(2)
+// +
+// climbStairs(1)
+
+// Go to:
+
+// climbStairs(2)
+// climbStairs(2)
+
+// Needs:
+
+// climbStairs(1)
+// +
+// climbStairs(0)
+// climbStairs(1)
+
+// Base case:
+
+// returns 1
+// climbStairs(0)
+
+// Base case:
+
+// returns 1
+
+// Now:
+
+// ways(2)=1+1=2
+
+// Store:
+
+// dp[2] = 2
+
+// dp becomes:
+
+// [empty, empty, 2]
+// Return to climbStairs(3)
+
+// Now needs:
+
+// climbStairs(1)
+
+// Base case returns:
+
+// 1
+
+// Now:
+
+// ways(3)=2+1=3
+
+// Store:
+
+// dp[3] = 3
+
+// dp:
+
+// [empty, empty, 2, 3]
+// Return to climbStairs(4)
+
+// Now needs:
+
+// climbStairs(2)
+
+// BUT NOW WATCH CAREFULLY.
+
+// This time:
+
+// dp[2]
+
+// already exists.
+
+// So immediately:
+
+// return 2
+
+// NO recursion happens.
+
+// Entire subtree skipped.
+
+// THIS is DP optimization.
+
+// Continue climbStairs(4)
+
+// Now:
+
+// ways(4)=3+2=5
+
+// Store:
+
+// dp[4] = 5
+
+// dp:
+
+// [empty, empty, 2, 3, 5]
+// Return to climbStairs(5)
+
+// Now needs:
+
+// climbStairs(3)
+
+// Again:
+
+// dp[3]
+
+// already exists.
+
+// Immediately returns:
+
+// 3
+
+// No recursion again.
+
+// Finish climbStairs(5)
+
+// ways(5)=5+3=8
+
+// Store:
+
+// dp[5] = 8
+
+// Final dp:
+
+// [empty, empty, 2, 3, 5, 8]
+
+// Answer:
+
+// 8
+
+// HUGE DP REALIZATION
+
+// Without memoization:
+
+// same stairs solved repeatedly
+
+// With memoization:
+
+// each stair solved ONLY ONCE
+
+// This is the essence of DP.
+
+
+// Complexity Transformation
+// Pure Recursion
+
+// Time:
+
+// O(2^n)
+
+// Very slow.
+
+// Memoization
+
+// Time:
+
+// O(n)
+
+// Why?
+
+// Because:
+// each stair computed once.
+
+
+// THE MOST IMPORTANT DP TEMPLATE
+
+// This template appears EVERYWHERE.
+
+// Step 1
+
+// Define state.
+
+// Example:
+
+// ways(n)
+// Step 2
+
+// Find recurrence.
+
+// ways(n)=ways(n−1)+ways(n−2)
+
+// Step 3
+
+// Find base cases.
+
+// ways(0)=1,ways(1)=1
+
+// Step 4
+
+// Store repeated states.
+
+// dp[n]
+// Step 5
+
+// Reuse cached answers.
+
+
+
+// ----------------------
+
+
+// Tabulation for Climbing Stairs (Bottom Up DP)
+
+
+// Recap the Recurrence
+
+// We discovered:
+
+// ways(n)=ways(n−1)+ways(n−2)
+
+// Base cases:
+
+// ways(0)=1,ways(1)=1
+
+// Memoization solved this recursively.
+
+// Now we will solve:
+// WITHOUT recursion.
+
+
+// The BIG Bottom-Up Intuition
+
+// Instead of asking:
+
+// “How do I solve ways(5)?”
+
+// we think:
+
+// “I already know smallest answers.
+// Let me build bigger answers gradually.”
+
+// This is:
+
+// Bottom-Up Thinking
+
+// What Answers Already Exist?
+
+// Base cases already known:
+
+// ways(0) = 1
+// ways(1) = 1
+
+// Now we can build:
+
+// ways(2)
+// ways(3)
+// ways(4)
+// ways(5)
+
+// step by step.
+
+// Creating the DP Table
+
+// Suppose:
+
+// n = 5
+
+// We create:
+
+// dp[]
+
+// Initially:
+
+// Index: 0 1 2 3 4 5
+// Value: ? ? ? ? ? ?
+
+// Now fill base cases:
+
+// Index: 0 1 2 3 4 5
+// Value: 1 1 ? ? ? ?
+
+
+// Building ways(2)
+
+// Using recurrence:
+
+// ways(2)=ways(1)+ways(0)
+
+// Already known:
+
+// ways(1)=1
+// ways(0)=1
+
+// So:
+
+// ways(2)=2
+
+// Store:
+
+// dp[2]=2
+
+// Table becomes:
+
+// Index: 0 1 2 3 4 5
+// Value: 1 1 2 ? ? ?
+
+// Building ways(3)
+
+// Using:
+
+// ways(3)=ways(2)+ways(1)
+
+// Known:
+
+// ways(2)=2
+// ways(1)=1
+
+// So:
+
+// ways(3)=3
+
+// Store:
+
+// dp[3]=3
+
+// Table:
+
+// Index: 0 1 2 3 4 5
+// Value: 1 1 2 3 ? ?
+
+// Continue Building
+
+// Similarly:
+
+// ways(4)
+
+// ways(4)=ways(3)+ways(2)=3+2=5
+
+// ways(5)
+
+// ways(5)=ways(4)+ways(3)=5+3=8
+
+// Final table:
+
+// Index: 0 1 2 3 4 5
+// Value: 1 1 2 3 5 8
+
+// Answer:
+
+// dp[5]=8
+
+
+// MOST IMPORTANT OBSERVATION
+
+// Notice:
+
+// No recursion happened.
+
+// No recursive tree.
+
+// No call stack.
+
+// Only:
+
+// iterative building
+
+// This is tabulation.
+
+
+Code:
+
+function climbingStairs(n){
+  let dp = new Array(n + 1);
+
+  dp[0] = 1;
+  dp[1] = 1;
+
+  for(let i = 2; i<=n; i++){
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
 }
 
-Meaning:
 
-“Did I already solve this stair?”
+// Understanding Array Creation
+// let dp = new Array(n + 1);
 
-If YES:
+// If:
 
-reuse answer immediately
+// n = 5
 
-No recursion.
+// we need indices:
 
-No repeated subtree.
+// 0 1 2 3 4 5
 
-COMPLETE DRY RUN
+// So total:
 
-Now comes the MOST IMPORTANT PART.
+// 6 spaces
 
-Suppose:
+// Hence:
 
-climbStairs(5)
+// n + 1
 
-Initially:
 
-dp = []
-climbStairs(5)
+// Memoization vs Tabulation
 
-Needs:
+// Memoization
+// Top Down
+// Recursion
+// Cache while returning
 
-climbStairs(4)
-+
-climbStairs(3)
 
-Go to:
+// Tabulation
+// Bottom Up
+// Iteration
+// Build from smallest states
 
-climbStairs(4)
-climbStairs(4)
+// Both solve SAME recurrence.
 
-Needs:
 
-climbStairs(3)
-+
-climbStairs(2)
+// ---------------------------
 
-Go to:
+// Space Optimized
 
-climbStairs(3)
-climbStairs(3)
+// First Observe the Transition Carefully
 
-Needs:
+// Tabulation transition was:
 
-climbStairs(2)
-+
-climbStairs(1)
+// dp[i]=dp[i−1]+dp[i−2]
 
-Go to:
+// Now think VERY carefully.
 
-climbStairs(2)
-climbStairs(2)
+// To calculate:
 
-Needs:
+// dp[5]
 
-climbStairs(1)
-+
-climbStairs(0)
-climbStairs(1)
+// what do we actually need?
 
-Base case:
+// Only:
 
-returns 1
-climbStairs(0)
+// dp[4]
+// dp[3]
 
-Base case:
+// Do we need:
 
-returns 1
+// dp[0] ?
+// dp[1] ?
+// dp[2] ?
 
-Now:
+// NO.
 
-ways(2)=1+1=2
+// Very important realization.
 
-Store:
+// The BIG Optimization Question
 
-dp[2] = 2
+// If current answer only depends on:
 
-dp becomes:
+// previous two answers
 
-[empty, empty, 2]
-Return to climbStairs(3)
+// then why store:
 
-Now needs:
+// entire dp array?
 
-climbStairs(1)
+// Huge wasted memory.
 
-Base case returns:
+// This creates:
 
-1
+// Space Optimization
 
-Now:
+// Visualizing the Waste
 
-ways(3)=2+1=3
+// Earlier DP table:
 
-Store:
+// Index: 0 1 2 3 4 5
+// Value: 1 1 2 3 5 8
 
-dp[3] = 3
+// But while calculating:
 
-dp:
+// dp[5]
 
-[empty, empty, 2, 3]
-Return to climbStairs(4)
+// we only use:
 
-Now needs:
+// dp[4]
+// dp[3]
 
-climbStairs(2)
+// Older values become useless.
 
-BUT NOW WATCH CAREFULLY.
+// Core Optimization Intuition
 
-This time:
+// Instead of storing ALL answers:
 
-dp[2]
+// store only required states
 
-already exists.
+// In this problem:
+// required states =
+// previous two stairs.
 
-So immediately:
+// Replacing DP Array with Variables
 
-return 2
+// Instead of:
 
-NO recursion happens.
+// dp[i - 1]
+// dp[i - 2]
 
-Entire subtree skipped.
+// we can use:
 
-THIS is DP optimization.
+// prev1
+// prev2
 
-Continue climbStairs(4)
+// Meaning:
 
-Now:
+// prev1 = ways for previous stair
+// prev2 = ways for second previous stair
 
-ways(4)=3+2=5
+// Initial Values
 
-Store:
+// Base cases:
 
-dp[4] = 5
+// ways(0)=1,ways(1)=1
 
-dp:
+// So initially:
 
-[empty, empty, 2, 3, 5]
-Return to climbStairs(5)
+// prev2 = 1
+// prev1 = 1
 
-Now needs:
+// Meaning:
 
-climbStairs(3)
+// prev2 = ways(0)
+// prev1 = ways(1)
 
-Again:
+// Calculating Current Stair
 
-dp[3]
+// For:
 
-already exists.
+// ways(2)
 
-Immediately returns:
+// we calculate:
 
-3
+// current=prev1+prev2
 
-No recursion again.
+// Meaning:
 
-Finish climbStairs(5)
+// current = 1 + 1 = 2
 
-ways(5)=5+3=8
+// Now we must move dependency window forward.
 
-Store:
+// MOST IMPORTANT PART (WINDOW SHIFTING)
 
-dp[5] = 8
+// This is the HEART of optimization.
 
-Final dp:
+// Before shifting:
 
-[empty, empty, 2, 3, 5, 8]
+// prev2 = ways(0)
+// prev1 = ways(1)
+// current = ways(2)
 
-Answer:
+// After shifting:
 
-8
+// prev2 becomes old prev1
+// prev1 becomes current
 
-HUGE DP REALIZATION
+// Meaning:
 
-Without memoization:
+// prev2 = prev1
+// prev1 = current
 
-same stairs solved repeatedly
+// Now:
 
-With memoization:
+// prev2 = ways(1)
+// prev1 = ways(2)
 
-each stair solved ONLY ONCE
+// Ready for next stair.
 
-This is the essence of DP.
+// Visualizing as Sliding Window
 
+// This visualization is EXTREMELY important.
 
-Complexity Transformation
-Pure Recursion
+// Initially:
 
-Time:
+// [1, 1]
 
-O(2^n)
+// Calculate next:
 
-Very slow.
+// 1 + 1 = 2
 
-Memoization
+// Move window:
 
-Time:
+// [1, 2]
 
-O(n)
+// Calculate next:
 
-Why?
+// 1 + 2 = 3
 
-Because:
-each stair computed once.
+// Move:
 
+// [2, 3]
 
-THE MOST IMPORTANT DP TEMPLATE
+// Calculate next:
 
-This template appears EVERYWHERE.
+// 2 + 3 = 5
 
-Step 1
+// Move:
 
-Define state.
+// [3, 5]
 
-Example:
+// Calculate next:
 
-ways(n)
-Step 2
+// 3 + 5 = 8
 
-Find recurrence.
+// Move:
 
-ways(n)=ways(n−1)+ways(n−2)
+// [5, 8]
 
-Step 3
+// This moving dependency window appears in MANY DP optimizations later.
 
-Find base cases.
 
-ways(0)=1,ways(1)=1
+Code:
 
-Step 4
+function climbingStairs(n){
+  if(n === 0) return 1;
+  if(n === 1) return 1;
 
-Store repeated states.
+  let prev2 = 1;
+  let prev1 = 1;
 
-dp[n]
-Step 5
+  for(let i = 2; i<=n; i++){
+    let current = prev1 + prev2;
 
-Reuse cached answers.
+    prev2 = prev1;
+    prev1 = current;
+  }
 
+  return prev1;
+}
 
 
+// Complexity Analysis
+// Before Optimization
 
+// Tabulation:
 
+// Time:
 
+// O(n)
 
+// Space:
 
+// O(n)
 
+// because dp array used.
 
+// After Optimization
 
+// Time:
 
+// O(n)
 
+// Still same.
 
+// But space:
 
+// O(1)
 
+// because only variables used.
 
+// Huge optimization.
 
 
+// COMPLETE CLIMBING STAIRS JOURNEY
 
+// You have now completed FULL DP journey for a real problem.
 
+// Stage 1 — Recursive Thinking
+// Break problem into smaller same problems
 
+// Stage 2 — Recurrence Relation
+// ways(n)=ways(n−1)+ways(n−2)
 
+// Stage 3 — Overlapping Subproblems
+// Repeated states appear
 
+// Stage 4 — Memoization
+// Store and reuse answers
+// Top Down DP
 
+// Stage 5 — Tabulation
+// Bottom Up DP
+// Build answers iteratively
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Stage 6 — Space Optimization
+// Keep only required dependencies
 
 
 
