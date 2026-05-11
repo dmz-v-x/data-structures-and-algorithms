@@ -42,7 +42,7 @@
 // Brute Force
 
 // Time Complexity: O(n^2)
-
+// Space Complexity: O(1)
 function subArrayRanges(nums){
   let n = nums.length;
   let total = 0;
@@ -61,3 +61,7 @@ function subArrayRanges(nums){
 
   return total;
 }
+
+
+// Optimal Solution
+
