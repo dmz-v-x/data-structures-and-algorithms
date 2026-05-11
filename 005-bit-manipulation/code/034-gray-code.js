@@ -230,7 +230,7 @@ function grayCode(n){
   let result = [];
 
   for(let i = 0; i < (i << n); i++){
-    result.push(i ^ (i << 1));
+    result.push(i ^ (i >> 1));
   }
 
   return result;
