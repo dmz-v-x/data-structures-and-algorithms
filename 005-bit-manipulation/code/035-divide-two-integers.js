@@ -222,6 +222,8 @@ function divide(dividend, divisor){
 }
 
 
+
+
 // Optimal
 
 // Each time we double.
@@ -229,3 +231,64 @@ function divide(dividend, divisor){
 // So complexity becomes approximately:
 
 // O(log n * log n)
+
+
+// In JavaScript:
+
+// Bitwise operators work on 32-bit signed integers
+
+// NOT normal large JavaScript numbers.
+
+// What Happens
+
+// Suppose:
+
+// temp becomes very large
+
+// Eventually:
+
+// temp << 1
+
+// causes overflow into negative numbers.
+
+// Then condition becomes weird:
+
+// dvd >= (temp << 1)
+
+// because shifted value may become negative.
+
+// Now loop may never stop correctly.
+
+// This causes TLE.
+
+// Example
+
+// JavaScript bitwise operations convert numbers internally to:
+
+// 32-bit signed integer
+
+// Range:
+
+// -2147483648 to 2147483647
+
+// If value exceeds this:
+
+// overflow happens.
+
+// Safer Solution
+
+// Instead of:
+
+// temp << 1
+
+// use:
+
+// temp + temp
+
+// And instead of:
+
+// multiple << 1
+
+// use:
+
+// multiple + multiple
