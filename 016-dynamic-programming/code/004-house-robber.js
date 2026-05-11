@@ -609,62 +609,640 @@ function rob(nums){
 
 
 
+// Tabulation (Botton UP Decision DP)
+
+// Recap the Main Recurrence
+
+// We discovered:
+
+// rob(i)=max(nums[i]+rob(i+2), rob(i+1))
+
+// Meaning:
+
+// At house i:
+
+// OPTION 1 — TAKE
+// rob current house
+// then move to i+2
+
+// Money:
+
+// nums[i]+rob(i+2)
+
+// OPTION 2 — SKIP
+// ignore current house
+// move to i+1
+
+// Money:
+
+// rob(i+1)
+
+// Choose better option using:
+
+// max
+
+// MOST IMPORTANT TABULATION INSIGHT
+
+// Notice carefully.
+
+// Current house:
+
+// i
+
+// depends on:
+
+// i+1
+// i+2
+
+// VERY important.
+
+// Unlike previous problems,
+// dependency is FORWARD.
+
+// This changes loop direction.
+
+// Bottom-Up Thinking
+
+// Instead of recursively asking:
+
+// “What is best robbery from house 0?”
+
+// we think:
+
+// “If I already know future answers,
+// I can calculate current answer.”
+
+// This is:
+
+// Bottom-Up DP
+
+
+// Understanding Base Case in DP Table
+
+// Recursive base case was:
+
+// rob(i)=0if i≥n
+
+// Meaning:
+
+// No houses left
+// =
+// 0 money
+
+// So in DP table:
+
+// future beyond array
+// =
+// 0
+
+// Example Setup
+
+// Suppose:
+
+// nums = [1,2,3,1]
+
+// Indices:
+
+// 0 1 2 3
+
+// We create:
+
+// dp[]
+
+// Meaning:
+
+// dp[i]
+// =
+// maximum money possible
+// starting from house i
+
+// Creating DP Array
+
+// We create:
+
+// let dp = new Array(nums.length + 2).fill(0);
+
+// VERY IMPORTANT.
+
+// Why:
+
+// +2
+
+// ?
+
+// Because recurrence uses:
+
+// i+1
+// i+2
+
+// We need safe future access.
+
+// Visualizing Initial DP Table
+
+// Initially:
+
+// Index: 0 1 2 3 4 5
+// Value: ? ? ? ? 0 0
+
+// Why:
+
+// dp[4]=0
+// dp[5]=0
+
+// ?
+
+// Because:
+// beyond last house →
+// no money possible.
+
+// These are tabulation base cases.
+
+// MOST IMPORTANT OBSERVATION
+
+// Current state depends on:
+
+// future states
+
+// Meaning:
+
+// we must fill array backwards
+
+// VERY important.
+
+// This is one of the BIGGEST DP skills:
+
+// dependency direction
+
+// Starting From Last House
+
+// Last house:
+
+// i = 3
+
+// House value:
+
+// 1
+
+// Formula:
+
+// dp[3]=max(nums[3]+dp[5], dp[4])
+
+// Substitute:
+
+// max(1+0,0)
+// =
+// 1
+
+// Store:
+
+// dp[3]=1
+
+// Table:
+
+// [?,?,?,1,0,0]
+
+// alculate dp[2]
+
+// Formula:
+
+// dp[2]=max(nums[2]+dp[4], dp[3])
+
+// Substitute:
+
+// max(3+0,1)
+// =
+// 3
+
+// Store:
+
+// dp[2]=3
+
+// Table:
+
+// [?,?,3,1,0,0]
+
+
+// Calculate dp[1]
+
+// Formula:
+
+// dp[1]=max(nums[1]+dp[3], dp[2])
+
+// Substitute:
+
+// max(2+1,3)
+// =
+// 3
+
+// Store:
+
+// dp[1]=3
+
+// Table:
+
+// [?,3,3,1,0,0]
+
+// Calculate dp[0]
+
+// Formula:
+
+// dp[0]=max(nums[0]+dp[2], dp[1])
+
+// Substitute:
+
+// max(1+3,3)
+// =
+// 4
+
+// Store:
+
+// dp[0]=4
+
+// Final table:
+
+// [4,3,3,1,0,0]
+
+// Answer:
+
+// dp[0]
+// =
+// 4
+
+// Because:
+// problem asks:
+// best robbery starting from house 0.
+
+function rob(nums){
+  let n = nums.length;
+
+  let dp = new Array(n + 2).fill(0);
+
+  for(let i = n-1; i>=0; i--){
+    let take = nums[i] + dp[i + 1];
+    let skip = dp[i + 1];
+
+    dp[i] = Math.max(take, skip);
+  }
+
+  return dp[0];
+}
+
+
+// HUGE DP REALIZATION
+
+// Previous problems built:
+
+// left → right
+
+// because current depended on previous states.
+
+// House Robber builds:
+
+// right → left
+
+// because current depends on future states.
+
+// This dependency-direction skill is MASSIVE in DP.
+
+
+// Time & Space Complexity
+
+// Time:
+
+// O(n)
+
+// Because:
+// each house processed once.
+
+// Space:
+
+// O(n)
+
+// Because DP array used.
+
+
+// ---------------------
+
+// Space Optimization 
+
+
+// Observe the Dependency Carefully
+
+// Tabulation recurrence was:
+
+// dp[i]=max(nums[i]+dp[i+2], dp[i+1])
+
+// Now think VERY carefully.
+
+// To calculate:
+
+// dp[i]
+
+// what do we actually need?
+
+// Only:
+
+// dp[i+1]
+// dp[i+2]
+
+// Do we need:
+
+// dp[i+3] ?
+// dp[i+4] ?
+// older states?
+
+// NO.
+
+// Very important realization.
+
+// The BIG Optimization Question
+
+// If current state depends only on:
+
+// next two states
+
+// then why store:
+
+// entire dp array?
+
+// Huge memory waste.
+
+// This creates:
+
+// Space Optimization
+
+// Visualizing the Waste
+
+// Earlier DP table:
+
+// Index: 0 1 2 3 4 5
+// Value: 4 3 3 1 0 0
+
+// But while calculating:
+
+// dp[1]
+
+// we only used:
+
+// dp[2]
+// dp[3]
+
+// All other values unnecessary.
+
+// Core Optimization Intuition
+
+// Instead of storing ALL states:
+
+// store only required future states
+
+// In this problem:
+// required states =
+// next two robbery answers.
+
+// Replacing DP Array with Variables
+
+// Instead of:
+
+// dp[i + 1]
+// dp[i + 2]
+
+// we use:
+
+// next1
+// next2
+
+// Meaning:
+
+// next1
+// =
+// best robbery starting at i+1
+
+// next2
+// =
+// best robbery starting at i+2
+
+// Initial Values
+
+// Base case:
+
+// beyond array = 0
+
+// Meaning initially:
+
+// next1 = 0;
+// next2 = 0;
+
+// Why?
+
+// Because:
+// at end of array:
+// no houses left →
+// 0 money.
+
+// Calculating Current State
+
+// Formula becomes:
+
+// current=max(nums[i]+next2, next1)
+
+// Meaning:
+
+// TAKE
+// nums[i] + next2
+// SKIP
+// next1
+
+// Choose better option.
+
+// MOST IMPORTANT PART (WINDOW SHIFTING)
+
+// This is the HEART of optimization.
+
+// Before shifting:
+
+// next1 = dp[i+1]
+// next2 = dp[i+2]
+// current = dp[i]
+
+// After shifting:
+
+// next2 becomes old next1
+// next1 becomes current
+
+// Meaning:
+
+// next2 = next1;
+// next1 = current;
+
+// Now:
+
+// next1 = dp[i]
+// next2 = dp[i+1]
+
+// Ready for next iteration.
+
+
+// Visualizing as Sliding Window
+
+// This visualization is EXTREMELY important.
+
+// Suppose:
+
+// nums = [1,2,3,1]
+
+// We move RIGHT → LEFT.
+
+// Initially:
+
+// [next1,next2]
+// =
+// [0,0]
+// House 3
+// max(1+0,0)
+// =
+// 1
+
+// Move:
+
+// [1,0]
+// House 2
+// max(3+0,1)
+// =
+// 3
+
+// Move:
+
+// [3,1]
+// House 1
+// max(2+1,3)
+// =
+// 3
+
+// Move:
+
+// [3,3]
+// House 0
+// max(1+3,3)
+// =
+// 4
+
+// Move:
+
+// [4,3]
+
+// Answer:
+
+// 4
+
+// Correct.
+
+Code:
+
+function rob(nums){
+  let next1 = 0;
+  let next2 = 0;
+
+  for(let i = nums.length - 1; i >= 0; i--){
+    let current = Math.max(nums[i] + next2, next1);
+    next2 = nex1;
+    next1 = current;
+  };
+
+  return next1;
+}
+
+
+// COMPLETE DRY RUN
+
+// Suppose:
+
+// nums = [1,2,3,1]
+// Initial
+// next1 = 0
+// next2 = 0
+
+// Meaning:
+
+// dp beyond array = 0
+// i = 3
+
+// Formula:
+
+// max(1+0,0)=1
+
+// Shift:
+
+// next2 = 0
+// next1 = 1
+// i = 2
+
+// Formula:
+
+// max(3+0,1)=3
+
+// Shift:
+
+// next2 = 1
+// next1 = 3
+// i = 1
+
+// Formula:
+
+// max(2+1,3)=3
+
+// Shift:
+
+// next2 = 3
+// next1 = 3
+// i = 0
+
+// Formula:
+
+// max(1+3,3)=4
+
+// Shift:
+
+// next2 = 3
+// next1 = 4
+
+// Return:
+
+// 4
+
+// Correct.
 
 
 
+// Complexity Analysis
+// Before Optimization
 
+// Tabulation:
 
+// Time:
 
+// O(n)
 
+// Space:
 
+// O(n)
 
+// because DP array used.
 
+// After Optimization
 
+// Time:
 
+// O(n)
 
+// Still same.
 
+// Space:
 
+// O(1)
 
+// because only variables used.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Huge optimization.
 
 
 
