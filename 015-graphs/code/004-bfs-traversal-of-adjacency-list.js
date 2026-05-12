@@ -125,6 +125,27 @@ bfs(adj) {
 }
 
 
+function bfs(graph, start){
+  let visited = new Array(graph.length).fill(false);
+  let queue = [];
+  let result = [];
+
+  queue.push(start);
+  visited[start] = true;
+
+  while(queue.length > 0){
+    let node = queue.shift();
+    result.push(node);
+
+    for(let nei of graph[node]){
+      if(!visited[nei]){
+        visited[nei] = true;
+        queue.push(nei);
+      }
+    }
+  }
+  return result;
+}
 
 
 
