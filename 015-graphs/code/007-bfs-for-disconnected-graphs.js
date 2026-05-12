@@ -83,6 +83,8 @@
 // Result becomes: [0,1,2,3,4]  
 // Visited = [true, true, true, true, true]
 
+// BFS for Disconnected components for adjacency list
+
 
 function bfsDisconnected(adj){
   const n = adj.length;
@@ -115,7 +117,42 @@ function bfsDisconnected(adj){
 
 
 
+// BFS for Disconnected Graph for Adjacency Matrix
 
+
+function bfsDisconnected(matrix){
+  let n = matrix.length;
+  let visisted = new Array(n).fill(false);
+  let visited = [];
+
+  function bfs(start){
+    let queue = [];
+    visited[start] = true;
+    queue.push(start);
+
+    while(queue.length > 0){
+      let node = queue.shift();
+      result.push(node);
+
+      for(let nei = 0; nei < n; nei++){
+        if(matrix[node][nei] === 1 && !visited[nei]){
+          visited[nei] = true;
+          queue.push(nei);
+        }
+      }
+    }
+  }
+
+
+  // Important outer loop
+  for(let i = 0; i<n; i++){
+    if(!visited[i]){
+      bfs(i);
+    }
+  }
+
+  return result;
+}
 
 
 
