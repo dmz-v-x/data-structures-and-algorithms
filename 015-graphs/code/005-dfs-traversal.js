@@ -29,6 +29,8 @@
 
 // When vertex are 0 to n-1 use array when vertex are "A" and so on use set
 
+// DFS Traversal of Adjacency List
+
 function dfs(adj){
   const n = adj.length;
 
@@ -54,3 +56,36 @@ function dfs(adj){
 
   
 }
+
+// DFS Traversal of Adjacency Matrix
+
+function dfs(matrix, start){
+  let n = matrix.length;
+
+  let visited = new Array(n).fill(false);
+
+  let result = [];
+
+  function traverse(node){
+    // mark visited
+    visited[node] = true;
+
+    // process node
+    result.push(node);
+
+    for(let neighbor = 0; neighbor < n; neighbor++){
+      // edge exists and unvisited
+
+      if(matrix[node][neighbor] === 1 && !visited[neighbor]){
+        traverse(neighbor);
+      }
+    }
+  }
+
+  traverse(start);
+  return result;
+}
+
+
+
+
