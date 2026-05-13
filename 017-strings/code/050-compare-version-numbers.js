@@ -1,184 +1,184 @@
-Compare Version Numbers
+// Compare Version Numbers
 
-Problem usually looks like this:
+// Problem usually looks like this:
 
-Given two version strings:
+// Given two version strings:
 
-version1 = "1.2"
-version2 = "1.10"
+// version1 = "1.2"
+// version2 = "1.10"
 
-compare them.
+// compare them.
 
-Return:
+// Return:
 
-1 → if version1 > version2
--1 → if version1 < version2
-0 → if equal
+// 1 → if version1 > version2
+// -1 → if version1 < version2
+// 0 → if equal
 
-A version is divided by dots (.)
+// A version is divided by dots (.)
 
-Example:
+// Example:
 
-"1.2.10"
+// "1.2.10"
 
-means:
+// means:
 
-[1, 2, 10]
+// [1, 2, 10]
 
-Each part is called a revision number.
+// Each part is called a revision number.
 
-VERY IMPORTANT UNDERSTANDING
+// VERY IMPORTANT UNDERSTANDING
 
-We compare version numbers part by part.
+// We compare version numbers part by part.
 
-Example:
+// Example:
 
-1.2.10
-1.3.1
+// 1.2.10
+// 1.3.1
 
-Compare:
+// Compare:
 
-Part	Version1	Version2
-1	1	1
-2	2	3
+// Part	Version1	Version2
+// 1	1	1
+// 2	2	3
 
-At second part:
+// At second part:
 
-2 < 3
+// 2 < 3
 
-So:
+// So:
 
-version1 < version2
+// version1 < version2
 
-We STOP immediately.
+// We STOP immediately.
 
 
-Another Example
-1.10
-1.2
+// Another Example
+// 1.10
+// 1.2
 
-Many beginners think:
+// Many beginners think:
 
-"10" < "2"
+// "10" < "2"
 
-because string comparison compares character-by-character.
+// because string comparison compares character-by-character.
 
-BUT THIS IS WRONG.
+// BUT THIS IS WRONG.
 
-We compare numerically:
+// We compare numerically:
 
-10 > 2
+// 10 > 2
 
-So:
+// So:
 
-1.10 > 1.2
+// 1.10 > 1.2
 
-Important Edge Case
+// Important Edge Case
 
-Trailing zeros do not matter.
+// Trailing zeros do not matter.
 
-Example:
+// Example:
 
-1.0
-1
+// 1.0
+// 1
 
-These are equal.
+// These are equal.
 
-Because:
+// Because:
 
-[1,0]
-[1]
+// [1,0]
+// [1]
 
-Missing parts are treated as 0.
+// Missing parts are treated as 0.
 
-So actually:
+// So actually:
 
-[1,0]
-[1,0]
+// [1,0]
+// [1,0]
 
-Equal.
+// Equal.
 
-Core Idea
+// Core Idea
 
-We need to:
+// We need to:
 
-Split by .
-Compare each number
-If one version is shorter:
-treat missing values as 0
+// Split by .
+// Compare each number
+// If one version is shorter:
+// treat missing values as 0
 
-Visual Dry Run
+// Visual Dry Run
 
-Example:
+// Example:
 
-version1 = "1.0.1"
-version2 = "1"
+// version1 = "1.0.1"
+// version2 = "1"
 
-After split:
+// After split:
 
-v1 = [1,0,1]
-v2 = [1]
+// v1 = [1,0,1]
+// v2 = [1]
 
-Now compare.
+// Now compare.
 
-Iteration 1
+// Iteration 1
 
-Compare:
+// Compare:
 
-1 vs 1
+// 1 vs 1
 
-Equal.
+// Equal.
 
-Move ahead.
+// Move ahead.
 
-Iteration 2
+// Iteration 2
 
-Compare:
+// Compare:
 
-0 vs missing
+// 0 vs missing
 
-Missing means:
+// Missing means:
 
-0
+// 0
 
-So:
+// So:
 
-0 vs 0
+// 0 vs 0
 
-Equal.
+// Equal.
 
-Iteration 3
+// Iteration 3
 
-Compare:
+// Compare:
 
-1 vs missing
+// 1 vs missing
 
-means:
+// means:
 
-1 vs 0
+// 1 vs 0
 
-Now:
+// Now:
 
-1 > 0
+// 1 > 0
 
-Return:
+// Return:
 
-1
+// 1
 
-Meaning:
+// Meaning:
 
-version1 > version2
+// version1 > version2
 
-Most Important Observation
+// Most Important Observation
 
-At every index:
+// At every index:
 
-num1 = existing value OR 0
-num2 = existing value OR 0
+// num1 = existing value OR 0
+// num2 = existing value OR 0
 
-Then compare.
+// Then compare.
 
-That is the ENTIRE problem.
+// That is the ENTIRE problem.
 
 // Brute Force
 
