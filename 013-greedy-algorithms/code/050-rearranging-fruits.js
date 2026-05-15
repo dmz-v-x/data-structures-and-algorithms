@@ -727,26 +727,327 @@ function minCost(basket1, basket2){
 }
 
 
+// Dry Run:
+
+// basket1 = [1,100,100,400]
+// basket2 = [1,200,200,400]
+
+// Current State
+// basket1
+// [1,100,100,400]
+// basket2
+// [1,200,200,400]
+
+// Desired Final State
+
+// Each basket should contain:
+
+// 1 -> 1
+// 100 -> 1
+// 200 -> 1
+// 400 -> 1
+
+// So eventually:
+
+// [1,100,200,400]
+
+// in both baskets.
+
+// Step 1: Build Total Frequency Map
+
+// Code:
+
+// const freq = new Map();
+// Loop Through basket1
+// fruit = 1
+// freq = {
+//   1:1
+// }
+// fruit = 100
+// freq = {
+//   1:1,
+//   100:1
+// }
+// fruit = 100 again
+// freq = {
+//   1:1,
+//   100:2
+// }
+// fruit = 400
+// freq = {
+//   1:1,
+//   100:2,
+//   400:1
+// }
+// Loop Through basket2
+// fruit = 1
+// freq = {
+//   1:2,
+//   100:2,
+//   400:1
+// }
+// fruit = 200
+// freq = {
+//   1:2,
+//   100:2,
+//   200:1,
+//   400:1
+// }
+// fruit = 200 again
+// freq = {
+//   1:2,
+//   100:2,
+//   200:2,
+//   400:1
+// }
+// fruit = 400
+// freq = {
+//   1:2,
+//   100:2,
+//   200:2,
+//   400:2
+// }
+// FINAL freq MAP
+// 1 -> 2
+// 100 -> 2
+// 200 -> 2
+// 400 -> 2
+
+
+// STEP 2 — Check If Possible
+
+// Code:
+
+// for (const count of freq.values()) {
+//     if (count % 2 !== 0) {
+//         return -1;
+//     }
+// }
+
+// Check each:
+
+// 2 % 2 = 0
+// 2 % 2 = 0
+// 2 % 2 = 0
+// 2 % 2 = 0
+
+// All even.
+
+// So solution IS possible.
+
+// WHY EVEN?
+
+// Because total fruits must split equally into two baskets.
+
+
+// STEP 3 — Build Individual Basket Counts
+// count1
+
+// Process basket1:
+
+// 1 -> 1
+// 100 -> 2
+// 400 -> 1
+// count2
+
+// Process basket2:
+
+// 1 -> 1
+// 200 -> 2
+// 400 -> 1
+
+
+// STEP 4 — Find Global Minimum
+
+// Code:
+
+// let globalMin = Infinity;
+
+// Loop over freq keys:
+
+// 1
+// 100
+// 200
+// 400
+// Compare
+// min(∞,1)
+// globalMin = 1
+// min(1,100)
+
+// still 1
+
+// min(1,200)
+
+// still 1
+
+// min(1,400)
+
+// still 1
+
+// FINAL
+// globalMin = 1
 
 
 
 
+// STEP 5 — Find Extra Fruits
+
+// Code:
+
+// const extra1 = [];
+// const extra2 = [];
+
+// Loop through every fruit.
+
+// FRUIT = 1
+// c1
+// 1
+// c2
+// 1
+
+// Difference:
+
+// 0
+
+// No extras.
+
+// FRUIT = 100
+// c1
+// 2
+// c2
+// 0
+
+// Difference:
+
+// 2
+
+// Need:
+
+// 2 / 2 = 1
+
+// extra fruit.
+
+// Since basket1 has more:
+
+// extra1.push(100)
+// extra1
+// [100]
+
+
+// FRUIT = 200
+// c1
+// 0
+// c2
+// 2
+
+// Difference:
+
+// 2
+
+// Need:
+
+// 1 extra
+
+// Since basket2 has more:
+
+// extra2.push(200)
+// extra2
+// [200]
+
+
+// FRUIT = 400
+
+// Both have 1.
+
+// No extras.
+
+// FINAL EXTRA ARRAYS
+// extra1
+// [100]
+// extra2
+// [200]
+
+// Meaning:
+
+// Need:
+
+// 100 ↔ 200
 
 
 
 
+// STEP 6 — Sorting
+
+// Code:
+
+// extra1.sort((a,b)=>a-b)
+// extra2.sort((a,b)=>b-a)
+// extra1
+
+// Already:
+
+// [100]
+// extra2
+
+// Already:
+
+// [200]
 
 
+// STEP 7 — Calculate Minimum Cost
+
+// Code:
+
+// let answer = 0;
+// i = 0
+// a
+// 100
+// b
+// 200
+// Direct Cost
+
+// Code:
+
+// Math.min(a,b)
+// min(100,200)=100
+// Indirect Cost
+
+// Code:
+
+// 2 * globalMin
+// 2 * 1 = 2
+// Final Choice
+
+// Code:
+
+// Math.min(directCost, indirectCost)
+// min(100,2)=2
+// Update Answer
+// answer = 2
+// FINAL ANSWER
+// 2
 
 
+// WHAT DOES THIS MEAN PHYSICALLY?
 
+// Instead of expensive:
 
+// 100 ↔ 200
 
+// (cost = 100)
 
+// we do:
 
+// Swap 1
+// 100 ↔ 1
 
+// cost = 1
 
+// Swap 2
+// 1 ↔ 200
 
+// cost = 1
 
+// Total:
 
-
+// 1 + 1 = 2
