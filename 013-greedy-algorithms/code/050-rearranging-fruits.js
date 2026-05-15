@@ -640,5 +640,113 @@
 
 // It does NOT need to be present in both baskets.
 
+code:
+
+function minCost(basket1, basket2){
+  const freq = new Map();
+
+  // Step 1: Count Total Frequency
+  for(const fruit of basket1){
+    freq.set(fruit, (freq.get(fruit) || 0) + 1)
+  }
+
+  for(const fruit of basekt2){
+    freq.set(fruit, (freq.set(fruit) || 0) + 1);
+  }
+
+  // Step 2: If any frequency is odd -> impossible
+  for(const count of freq.values()){
+    if(count % 2 !== 0){
+      return -1;
+    }
+  }
+
+  // Step 3: Count individual basket frequencies
+  const count1 = new Map();
+  const count2 = new Map();
+
+  for(const fruit of basket1){
+    count1.set(fruit, (count1.set(fruit) || 0) + 1);
+  }
+
+  for(const fruit of basket2){
+    count2.set(fruit, (count2.set(fruit) || 0) + 1);
+  }
+
+  // Step 4: Find globally smallest fruit
+  let globalMin = Infinity;
+
+  for(const fruit of freq.keys()){
+    globalMin = Math.min(globalMin, fruit);
+  }
+
+  // Step 5: Find extra fruits
+  const extra1 = [];
+  const extra2 = [];
+
+  for(const fruit of freq.keys()){
+    const c1 = count1.get(fruit) || 0;
+    const c2 = count2.get(fruit) || 0;
+
+    // Difference
+    const diff = Math.abs(c1 - c2);
+
+    // Number of swaps needed for this fruit
+    const times = diff / 2;
+    if(c1 > c2){
+      for(let i = 0; i<times; i++){
+        extra1.push(fruit);
+      }
+    }else if(c2 > c1){
+      for(let i = 0; i<times; i++){
+        extra2.push(fruit);
+      }
+    }
+  }
+
+  // Step 6: Sort for greedy pairing
+  extra1.sort((a, b) => a - b);
+  extra2.sort((a, b) => b - a);
+
+  // Step 7: Calculate minimum cost
+  let answer = 0;
+
+  for(let i = 0; i<extra1.length; i++){
+    const a = extra1[i];
+    const b = extra2[i];
+
+    // Direct swap cost
+    const directCost = Math.min(a, b);
+
+    // Indirect swap through global minimum
+    const indirectCost = 2 * globalMin;
+
+    answer += Math.min(directCost, indirectCost);
+  }
+  return answer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
